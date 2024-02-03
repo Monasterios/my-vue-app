@@ -10,10 +10,10 @@
 <script setup>
 import { ref } from "vue";
 import { useUserStore } from "../stores/user";
-import { useRouter } from "vue-router";
+// import { useRouter } from "vue-router";
 
 const userStore = useUserStore();
-const router = useRouter();
+// const router = useRouter();
 
 const email = ref('test@mail.com');
 const password = ref('123123');
@@ -25,6 +25,6 @@ const handleSubmit = async () => {
     }   
 
      await userStore.registerUser(email.value, password.value);
-     router.push('/');
+    //  router.push('/');
 }
 </script>
