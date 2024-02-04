@@ -23,6 +23,10 @@
     
 <script setup>
 import { useUserStore } from "../stores/user";
+import { useDatabase } from "../stores/database";
+
+const db = useDatabase();
 const useStore = useUserStore();
 
+db.getUrls();
 </script>
