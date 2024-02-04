@@ -3,7 +3,7 @@
     <form @submit.prevent="handleSubmit"> 
         <input type="email" placeholder="ingrese email" v-model.trim="email">
         <input type="password" name="password" id="" placeholder="ingrese contraseña" v-model.trim="password"> 
-        <button type="submit">Log in</button>
+        <button type="submit" :disabled="useStore.loadingUser" >Log in</button>
     </form>
 </template>
     
