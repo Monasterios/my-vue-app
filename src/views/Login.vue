@@ -15,8 +15,8 @@ import { useUserStore } from "../stores/user";
 const useStore = useUserStore();
 // const router = useRouter ();
 
-const email = ref('email');
-const password = ref('password');
+const email = ref('test@mail.com');
+const password = ref('123123');
 
 const handleSubmit = async () => {
          if(!email.value || !password.value) {
