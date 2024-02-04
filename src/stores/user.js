@@ -5,6 +5,7 @@ import {
   signOut,
   onAuthStateChanged,
   deleteUser,
+  updateProfile,
 } from "firebase/auth";
 import { auth } from "../firebaseConfig";
 import router from "../router";
@@ -18,7 +19,7 @@ export const useUserStore = defineStore("userStore", {
     // router: useRouter()
   }),
   actions: {
-    async registerUser(email, password) {
+    async registerUser(email, password, name) {
       this.loadingUser = true;
       try {
         const { user } = await createUserWithEmailAndPassword(
@@ -26,10 +27,21 @@ export const useUserStore = defineStore("userStore", {
           email,
           password
         );
-        this.userData = { email: user.email, uid: user.uid };
-        //    this.router.push('/')
-        router.push("/login");
-        console.log(user);
+        updateProfile(auth.currentUser, {
+          displayName: name,
+        })
+          .then(() => {
+            this.userData = {
+              email: user.email,
+              uid: user.uid,
+              name: user.displayName,
+            };
+            //    this.router.push('/')
+            router.push("/login");
+          })
+          .catch((err) => {
+            console.log(err);
+          });
       } catch (error) {
         console.log(error);
       } finally {
@@ -44,9 +56,15 @@ export const useUserStore = defineStore("userStore", {
           email,
           password
         );
-        this.userData = { email: user.email, uid: user.uid };
+        this.userData = {
+          email: user.email,
+          uid: user.uid,
+          name: user.displayName,
+        };
         // this.router.push('/')
         router.push("/");
+        console.log(user);
+        console.log(user.displayName);
       } catch (error) {
         console.log(error);
       } finally {
@@ -72,7 +90,11 @@ export const useUserStore = defineStore("userStore", {
             auth,
             (user) => {
               if (user) {
-                this.userData = { email: user.email, uid: user.uid };
+                this.userData = {
+                  email: user.email,
+                  uid: user.uid,
+                  name: user.displayName,
+                };
               } else {
                 this.userData = null;
               }

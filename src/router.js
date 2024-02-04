@@ -6,6 +6,7 @@ import Login from "./views/Login.vue";
 import Register from "./views/Register.vue";
 
 const requireAuth = async (to, from, next) => {
+  console.log("eh");
   const useStore = useUserStore();
   useStore.loadingSession = true;
   const user = await useStore.userSession();
