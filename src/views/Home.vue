@@ -17,6 +17,13 @@
         </div>
         <br>
         <br>
+        <ul>
+            <li v-for="items of db.documents" :key="items.id">
+            <div>{{ items.name }}</div>
+            <div>{{ items.user  }}</div>
+            <div>{{ items.short }}</div>
+        </li>
+        </ul>
         <button @click="useStore.deleteUserSession">Delete user</button>
     </div>
 </template>
