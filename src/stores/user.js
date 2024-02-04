@@ -4,6 +4,7 @@ import {
   signInWithEmailAndPassword,
   signOut,
   onAuthStateChanged,
+  deleteUser,
 } from "firebase/auth";
 import { auth } from "../firebaseConfig";
 import router from "../router";
@@ -13,6 +14,7 @@ export const useUserStore = defineStore("userStore", {
   state: () => ({
     userData: null,
     loadingUser: false,
+    loadingSession: false,
     // router: useRouter()
   }),
   actions: {
@@ -26,7 +28,7 @@ export const useUserStore = defineStore("userStore", {
         );
         this.userData = { email: user.email, uid: user.uid };
         //    this.router.push('/')
-        router.push("/");
+        router.push("/login");
         console.log(user);
       } catch (error) {
         console.log(error);
@@ -80,6 +82,16 @@ export const useUserStore = defineStore("userStore", {
           );
         })();
       });
+    },
+    async deleteUserSession() {
+      await deleteUser(auth.currentUser)
+        .then(() => {
+          console.log("usuario eliminado");
+          router.push("/register");
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     },
   },
 });

@@ -7,6 +7,7 @@ import Register from "./views/Register.vue";
 
 const requireAuth = async (to, from, next) => {
   const useStore = useUserStore();
+  useStore.loadingSession = true;
   const user = await useStore.userSession();
 
   if (user) {
@@ -14,6 +15,7 @@ const requireAuth = async (to, from, next) => {
   } else {
     next("/login");
   }
+  useStore.loadingSession = false;
 };
 
 const routes = [

@@ -1,11 +1,14 @@
 <template>
 <h1>App base</h1> 
-<nav>
-  <router-link to="/">Home</router-link>
-  <router-link to="/login">Login</router-link>
-  <router-link to="/register">Register</router-link>
-  <button @click="singOutUser">Logout</button>
+<nav v-if="!useStore.loadingSession">
+  <router-link to="/" v-if="useStore.userData">Home</router-link>
+  <router-link to="/login" v-if="!useStore.userData">Login</router-link>
+  <router-link to="/register" v-if="!useStore.userData">Register</router-link>
+  <button @click="singOutUser" v-if="useStore.userData">Logout</button>
 </nav> 
+<div v-else>
+  <span>Loading user</span>
+</div>
 <router-view></router-view>
 </template>
 

@@ -3,11 +3,14 @@
     <div>
         <b>User mail</b>
         <div>
-            <span></span>
+            <span>{{ useStore.userData?.email }}</span>
         </div>
+        <button @click="useStore.deleteUserSession">Delete user</button>
     </div>
 </template>
     
 <script setup>
- 
+import { useUserStore } from "../stores/user";
+const useStore = useUserStore();
+
 </script>
